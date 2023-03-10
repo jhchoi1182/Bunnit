@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { theme } from "../Styles/Theme";
 
 const MyPage = () => {
   return (
@@ -13,7 +14,7 @@ export default MyPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: theme.bg,
     alignItems: "center",
     justifyContent: "center",
   },

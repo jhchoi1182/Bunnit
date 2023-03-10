@@ -8,6 +8,7 @@ import Calendar from "../Screens/Calendar";
 import Library from "../Screens/Library";
 import MyPage from "../Screens/MyPage";
 import Home from "../Screens/Home";
+import { theme } from "../Styles/Theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,11 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{ headerShown: false, tabBarLabelStyle: { fontWeight: 700 }, tabBarActiveTintColor: "black" }}
+        screenOptions={{
+          headerShown: false,
+          tabBarLabelStyle: { fontWeight: 700 },
+          tabBarActiveTintColor: theme.textColor,
+        }}
       >
         <Tab.Screen
           name="HOME"
