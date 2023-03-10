@@ -14,7 +14,9 @@ const Tab = createBottomTabNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="HOME" screenOptions={{ headerShown: false }}>
+      <Tab.Navigator
+        screenOptions={{ headerShown: false, tabBarLabelStyle: { fontWeight: 700 }, tabBarActiveTintColor: "black" }}
+      >
         <Tab.Screen
           name="HOME"
           component={Home}
@@ -42,7 +44,9 @@ const Navigation = () => {
           name="MY PAGE"
           component={MyPage}
           options={{
-            tabBarIcon: ({ size, color }) => <Ionicons name="person-outline" size={size} color={color} />,
+            tabBarIcon: ({ focused, size, color }) => (
+              <Ionicons name={focused ? "person" : "person-outline"} size={size} color={color} />
+            ),
           }}
         />
       </Tab.Navigator>
