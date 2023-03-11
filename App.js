@@ -4,7 +4,7 @@ import Navigation from "./src/Share/Navigation";
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" translucent={false} backgroundColor="transparent" />
       <Navigation />
     </>
   );

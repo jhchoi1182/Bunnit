@@ -1,12 +1,20 @@
-import { Text, View } from "react-native";
-import { common } from "../Styles/UI";
+import { StyleSheet, View } from "react-native";
+import CalendarContainer from "../components/Calendar/CalendarContainer";
+import { theme } from "../Styles/Theme";
 
 const Calendar = () => {
   return (
-    <View style={common.container}>
-      <Text>Calendar</Text>
+    <View style={styles.container}>
+      <CalendarContainer />
     </View>
   );
 };
 
 export default Calendar;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.bg,
+  },
+});
