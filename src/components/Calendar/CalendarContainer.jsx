@@ -9,9 +9,11 @@ const CalendarContainer = () => {
   const today = {
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
   };
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
+  const [selectedDay, setSelectedDay] = useState("");
 
   const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
 
@@ -45,29 +47,47 @@ const CalendarContainer = () => {
 
   const MonthDate = new Date(selectedYear, selectedMonth, 0);
   const currentDate = MonthDate.getDate();
-  const currentDay = MonthDate.getDay();
+
+  // 오늘, 선택된 날짜 표시하는 로직
+
+  const dayColor = (i) => {
+    if (today.year === selectedYear && today.month === selectedMonth && today.day === i) return { ...styles.today };
+    else if (selectedDay.year === selectedYear && selectedDay.month === selectedMonth && selectedDay.day === i)
+      return { ...styles.today, borderColor: "red" };
+  };
+
+  // 달력 날짜 표시하는 로직
 
   const returnDays = () => {
     let dayArr = [];
     for (let p = prevDay === 6 ? 32 : prevDate - prevDay; p <= prevDate; p++) {
       dayArr.push(
-        <Text style={{ ...styles.day, color: theme.inactive }} key={`prev${p}`}>
-          {p}
-        </Text>
+        <TouchableWithoutFeedback key={`prev${p}`} onPress={prevMonth}>
+          <View style={styles.day}>
+            <Text style={{ ...styles.dayText, color: theme.inactive }}>{p}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       );
     }
     for (let i = 1; i <= currentDate; i++) {
       dayArr.push(
-        <Text style={styles.day} key={i}>
-          {i}
-        </Text>
+        <TouchableWithoutFeedback
+          key={i}
+          onPress={() => setSelectedDay({ year: selectedYear, month: selectedMonth, day: i })}
+        >
+          <View style={styles.day}>
+            <Text style={{ ...styles.dayText, ...dayColor(i) }}>{i}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       );
     }
     for (let n = 1; n <= (dayArr.length === 42 ? 0 : 14); n++) {
       dayArr.push(
-        <Text style={{ ...styles.day, color: theme.inactive }} key={`next${n}`}>
-          {n}
-        </Text>
+        <TouchableWithoutFeedback key={`next${n}`} onPress={nextMonth}>
+          <View style={styles.day}>
+            <Text style={{ ...styles.dayText, color: theme.inactive }}>{n}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       );
     }
     return dayArr;
@@ -128,7 +148,20 @@ const styles = StyleSheet.create({
   },
   day: {
     width: (windowWidth - 21) / 7,
+    alignItems: "center",
+    paddingVertical: 5,
+  },
+  dayText: {
+    width: 30,
+    height: 30,
     textAlign: "center",
-    paddingVertical: 10,
+    paddingTop: 5,
+  },
+  today: {
+    fontWeight: 700,
+    borderWidth: 1,
+    borderRadius: 100,
+    borderStyle: "solid",
+    borderColor: "blue",
   },
 });
