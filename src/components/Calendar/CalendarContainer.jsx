@@ -49,7 +49,7 @@ const CalendarContainer = () => {
 
   const returnDays = () => {
     let dayArr = [];
-    for (let p = prevDate - prevDay; p <= prevDate; p++) {
+    for (let p = prevDay === 6 ? 32 : prevDate - prevDay; p <= prevDate; p++) {
       dayArr.push(
         <Text style={{ ...styles.day, color: theme.inactive }} key={`prev${p}`}>
           {p}
@@ -63,7 +63,7 @@ const CalendarContainer = () => {
         </Text>
       );
     }
-    for (let n = 1; n <= 6 - currentDay; n++) {
+    for (let n = 1; n <= (dayArr.length === 42 ? 0 : 14); n++) {
       dayArr.push(
         <Text style={{ ...styles.day, color: theme.inactive }} key={`next${n}`}>
           {n}
