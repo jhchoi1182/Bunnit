@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+const { width: windowWidth } = Dimensions.get("window");
 
 const CalendarContainer = () => {
   const today = {
@@ -9,6 +11,8 @@ const CalendarContainer = () => {
   };
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
+
+  const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
 
   // 헤더 로직
 
@@ -70,7 +74,11 @@ const CalendarContainer = () => {
         </TouchableWithoutFeedback>
       </View>
       <View style={styles.week}>
-        <Text>week</Text>
+        {week.map((v, i) => (
+          <Text key={i} style={{ ...styles.weekDay, color: (v === "Sun" && "red") || (v === "Sat" && "blue") }}>
+            {v}
+          </Text>
+        ))}
       </View>
       <View style={styles.days}>{returnDays()}</View>
     </View>
@@ -92,7 +100,14 @@ const styles = StyleSheet.create({
   },
   week: {
     flex: 0.1,
-    backgroundColor: "teal",
+    flexDirection: "row",
+    alignItems: "center",
+
+    // paddingHorizontal: 10,
+  },
+  weekDay: {
+    width: (windowWidth - 20) / 7,
+    textAlign: "center",
   },
   days: {
     flex: 0.75,
