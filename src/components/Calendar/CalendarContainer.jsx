@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { theme } from "../../Styles/Theme";
 
 const { width: windowWidth } = Dimensions.get("window");
 
@@ -49,13 +50,25 @@ const CalendarContainer = () => {
   const returnDays = () => {
     let dayArr = [];
     for (let p = prevDate - prevDay; p <= prevDate; p++) {
-      dayArr.push(<Text key={`prev${p}`}>{p}</Text>);
+      dayArr.push(
+        <Text style={{ ...styles.day, color: theme.inactive }} key={`prev${p}`}>
+          {p}
+        </Text>
+      );
     }
     for (let i = 1; i <= currentDate; i++) {
-      dayArr.push(<Text key={i}>{i}</Text>);
+      dayArr.push(
+        <Text style={styles.day} key={i}>
+          {i}
+        </Text>
+      );
     }
     for (let n = 1; n <= 6 - currentDay; n++) {
-      dayArr.push(<Text key={`next${n}`}>{n}</Text>);
+      dayArr.push(
+        <Text style={{ ...styles.day, color: theme.inactive }} key={`next${n}`}>
+          {n}
+        </Text>
+      );
     }
     return dayArr;
   };
@@ -89,6 +102,7 @@ export default CalendarContainer;
 
 const styles = StyleSheet.create({
   container: {
+    width: windowWidth,
     flex: 0.55,
     paddingHorizontal: 10,
   },
@@ -102,8 +116,6 @@ const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: "row",
     alignItems: "center",
-
-    // paddingHorizontal: 10,
   },
   weekDay: {
     width: (windowWidth - 20) / 7,
@@ -112,5 +124,11 @@ const styles = StyleSheet.create({
   days: {
     flex: 0.75,
     flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  day: {
+    width: (windowWidth - 21) / 7,
+    textAlign: "center",
+    paddingVertical: 10,
   },
 });
