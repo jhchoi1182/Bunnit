@@ -1,21 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
-import { theme } from "../Styles/Theme";
+import { Text, View } from "react-native";
+import { common } from "../Styles/UI";
 
 const Library = () => {
   return (
-    <View style={styles.container}>
+    <View style={common.container}>
       <Text>Library</Text>
     </View>
   );
 };
 
 export default Library;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.bg,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
