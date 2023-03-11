@@ -15,7 +15,28 @@ const CalendarContainer = () => {
   const [selectedMonth, setSelectedMonth] = useState(today.month);
   const [selectedDay, setSelectedDay] = useState("");
 
-  const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const week = () => {
+    const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
+    return week.map((v, i) => (
+      <Text key={i} style={{ ...styles.weekDay, color: (v === "Sun" && "red") || (v === "Sat" && "blue") }}>
+        {v}
+      </Text>
+    ));
+  };
 
   // 헤더 로직
 
@@ -100,19 +121,13 @@ const CalendarContainer = () => {
           <MaterialCommunityIcons name="chevron-left" size={30} color="#4bcffa" />
         </TouchableWithoutFeedback>
         <Text style={{ fontWeight: 700 }}>
-          {selectedMonth} {selectedYear}
+          {monthNames[selectedMonth - 1]} {selectedYear}
         </Text>
         <TouchableWithoutFeedback onPress={nextMonth}>
           <MaterialCommunityIcons name="chevron-right" size={30} color="#4bcffa" />
         </TouchableWithoutFeedback>
       </View>
-      <View style={styles.week}>
-        {week.map((v, i) => (
-          <Text key={i} style={{ ...styles.weekDay, color: (v === "Sun" && "red") || (v === "Sat" && "blue") }}>
-            {v}
-          </Text>
-        ))}
-      </View>
+      <View style={styles.week}>{week()}</View>
       <View style={styles.days}>{returnDays()}</View>
     </View>
   );
