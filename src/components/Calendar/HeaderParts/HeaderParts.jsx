@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CalendarContext } from "../../../Hooks.js/Hook";
 import { useContext } from "react";
@@ -45,9 +45,9 @@ const SpaceBetween = ({ children }) => {
 const prevMonth = () => {
   const { prevMonth } = useContext(CalendarContext);
   return (
-    <TouchableOpacity onPress={prevMonth} style={{}}>
+    <Pressable onPress={prevMonth} pressRetentionOffset={100}>
       <MaterialCommunityIcons name="chevron-left" size={30} color="#4bcffa" />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
@@ -56,9 +56,9 @@ const prevMonth = () => {
 const nextMonth = ({}) => {
   const { nextMonth } = useContext(CalendarContext);
   return (
-    <TouchableOpacity onPress={nextMonth}>
+    <Pressable onPress={nextMonth} pressRetentionOffset={100}>
       <MaterialCommunityIcons name="chevron-right" size={30} color="#4bcffa" />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

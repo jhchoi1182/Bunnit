@@ -13,12 +13,11 @@ const Day = () => {
   const showDay = useMemo(() => {
     const lastMonthDate = new Date(selectedYear, selectedMonth - 1, 0);
     const MonthDate = new Date(selectedYear, selectedMonth, 0);
-
     const prevDate = lastMonthDate.getDate();
     const prevDay = lastMonthDate.getDay();
     const currentDate = MonthDate.getDate();
     return { prevDate, prevDay, currentDate };
-  }, []);
+  }, [selectedMonth, selectedYear]);
 
   // 오늘, 선택된 날짜 표시하는 로직
 
