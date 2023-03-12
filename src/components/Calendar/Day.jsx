@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Text, TouchableWithoutFeedback, View } from "react-native";
-import { theme } from "../../Styles/Theme";
 import { windowWidth } from "../../Styles/UI";
+import { theme } from "../../Styles/Theme";
 
 const Week = ({ today, selectedYear, selectedMonth, prevMonth, nextMonth }) => {
   const [selectedDay, setSelectedDay] = useState({});
 
-  // 달력에 표시될 저번 달 날짜
+  // 달력에 저번 달, 이번 달 날짜 표시하는 데 쓰일 재료들
 
-  const lastMonthDate = new Date(selectedYear, selectedMonth - 1, 0);
-  const prevDate = lastMonthDate.getDate();
-  const prevDay = lastMonthDate.getDay();
+  const showDay = useMemo(() => {
+    const lastMonthDate = new Date(selectedYear, selectedMonth - 1, 0);
+    const MonthDate = new Date(selectedYear, selectedMonth, 0);
 
-  // 달력에 표시될 이번 달 날짜
-
-  const MonthDate = new Date(selectedYear, selectedMonth, 0);
-  const currentDate = MonthDate.getDate();
+    const prevDate = lastMonthDate.getDate();
+    const prevDay = lastMonthDate.getDay();
+    const currentDate = MonthDate.getDate();
+    return { prevDate, prevDay, currentDate };
+  }, []);
 
   // 오늘, 선택된 날짜 표시하는 로직
 
@@ -26,11 +27,11 @@ const Week = ({ today, selectedYear, selectedMonth, prevMonth, nextMonth }) => {
       return { ...styles.today };
   };
 
-  // 달력 날짜 표시하는 로직
+  // 달력에 날짜 표시하는 로직
 
   const returnDays = () => {
     let dayArr = [];
-    for (let p = prevDay === 6 ? 32 : prevDate - prevDay; p <= prevDate; p++) {
+    for (let p = showDay.prevDay === 6 ? 32 : showDay.prevDate - showDay.prevDay; p <= showDay.prevDate; p++) {
       dayArr.push(
         <TouchableWithoutFeedback key={`prev_${p}`} onPress={prevMonth}>
           <View style={styles.day}>
@@ -39,7 +40,7 @@ const Week = ({ today, selectedYear, selectedMonth, prevMonth, nextMonth }) => {
         </TouchableWithoutFeedback>
       );
     }
-    for (let i = 1; i <= currentDate; i++) {
+    for (let i = 1; i <= showDay.currentDate; i++) {
       dayArr.push(
         <TouchableWithoutFeedback
           key={i}
