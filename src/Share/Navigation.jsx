@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { ActivityIndicator, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { common } from "../Styles/UI";
 import { theme } from "../Styles/Theme";
-import { Text } from "react-native";
 import Home from "../Screens/Home";
 
 const Calendar = React.lazy(() => import("../Screens/Calendar"));
@@ -17,7 +18,13 @@ const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   return (
-    <Suspense fallback={<Text>로딩중...</Text>}>
+    <Suspense
+      fallback={
+        <View style={common.container}>
+          <ActivityIndicator size="large" />
+        </View>
+      }
+    >
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={{
