@@ -1,7 +1,6 @@
 import React from "react";
 import { Dimensions, Text, View } from "react-native";
-
-const { width: windowWidth } = Dimensions.get("window");
+import { windowWidth } from "../../Styles/UI";
 
 const Week = () => {
   const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
