@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createContext, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { windowWidth } from "../../Styles/UI";
+import Header from "./Header";
 import Week from "./Week";
 import Day from "./Day";
+
+export const CalendarContext = createContext({});
 
 const CalendarContainer = () => {
   const today = {
@@ -14,22 +16,7 @@ const CalendarContainer = () => {
   const [selectedYear, setSelectedYear] = useState(today.year);
   const [selectedMonth, setSelectedMonth] = useState(today.month);
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  // 헤더 로직
+  // 달 이동 로직
 
   const prevMonth = () => {
     if (selectedMonth === 1) {
@@ -50,27 +37,13 @@ const CalendarContainer = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={prevMonth}>
-          <MaterialCommunityIcons name="chevron-left" size={30} color="#4bcffa" />
-        </TouchableOpacity>
-        <Text style={{ fontWeight: 700 }}>
-          {monthNames[selectedMonth - 1]} {selectedYear}
-        </Text>
-        <TouchableOpacity onPress={nextMonth}>
-          <MaterialCommunityIcons name="chevron-right" size={30} color="#4bcffa" />
-        </TouchableOpacity>
+    <CalendarContext.Provider value={{ today, selectedYear, selectedMonth, prevMonth, nextMonth }}>
+      <View style={styles.container}>
+        <Header />
+        <Week />
+        <Day />
       </View>
-      <Week />
-      <Day
-        today={today}
-        selectedYear={selectedYear}
-        selectedMonth={selectedMonth}
-        prevMonth={prevMonth}
-        nextMonth={nextMonth}
-      />
-    </View>
+    </CalendarContext.Provider>
   );
 };
 
@@ -81,11 +54,5 @@ const styles = StyleSheet.create({
     width: windowWidth,
     flex: 0.55,
     paddingHorizontal: 10,
-  },
-  header: {
-    flex: 0.15,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
 });

@@ -1,9 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { Text, TouchableWithoutFeedback, View } from "react-native";
+import { CalendarContext } from "./CalendarContainer";
 import { windowWidth } from "../../Styles/UI";
 import { theme } from "../../Styles/Theme";
 
-const Week = ({ today, selectedYear, selectedMonth, prevMonth, nextMonth }) => {
+const Day = () => {
+  const { today, selectedYear, selectedMonth, prevMonth, nextMonth } = useContext(CalendarContext);
   const [selectedDay, setSelectedDay] = useState({});
 
   // 달력에 저번 달, 이번 달 날짜 표시하는 데 쓰일 재료들
@@ -67,7 +69,7 @@ const Week = ({ today, selectedYear, selectedMonth, prevMonth, nextMonth }) => {
   return <View style={styles.days}>{returnDays()}</View>;
 };
 
-export default Week;
+export default Day
 
 const styles = {
   days: {
