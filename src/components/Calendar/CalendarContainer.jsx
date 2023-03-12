@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { theme } from "../../Styles/Theme";
+import Week from "./Week";
 
 const { width: windowWidth } = Dimensions.get("window");
 
@@ -29,14 +30,6 @@ const CalendarContainer = () => {
     "November",
     "December",
   ];
-  const week = () => {
-    const week = ["Sun", "Mon", "Tue", "Wen", "Tur", "Fri", "Sat"];
-    return week.map((v, i) => (
-      <Text key={i} style={{ ...styles.weekDay, color: (v === "Sun" && "red") || (v === "Sat" && "blue") }}>
-        {v}
-      </Text>
-    ));
-  };
 
   // 헤더 로직
 
@@ -127,7 +120,7 @@ const CalendarContainer = () => {
           <MaterialCommunityIcons name="chevron-right" size={30} color="#4bcffa" />
         </TouchableWithoutFeedback>
       </View>
-      <View style={styles.week}>{week()}</View>
+      <Week />
       <View style={styles.days}>{returnDays()}</View>
     </View>
   );
@@ -146,15 +139,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  week: {
-    flex: 0.1,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  weekDay: {
-    width: (windowWidth - 20) / 7,
-    textAlign: "center",
   },
   days: {
     flex: 0.75,
