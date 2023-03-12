@@ -1,11 +1,10 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { CalendarContext } from "../../Hooks.js/Hook";
 import { windowWidth } from "../../Styles/UI";
 import Header from "./Header";
 import Week from "./Week";
 import Day from "./Day";
-
-export const CalendarContext = createContext({});
 
 const CalendarContainer = () => {
   const today = {

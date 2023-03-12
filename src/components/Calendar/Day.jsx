@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useState } from "react";
 import { Text, TouchableWithoutFeedback, View } from "react-native";
-import { CalendarContext } from "./CalendarContainer";
+import { CalendarContext } from "../../Hooks.js/Hook";
 import { windowWidth } from "../../Styles/UI";
 import { theme } from "../../Styles/Theme";
 
@@ -24,9 +24,9 @@ const Day = () => {
 
   const dayColor = (i) => {
     if (selectedDay.year === selectedYear && selectedDay.month === selectedMonth && selectedDay.day === i)
-      return { ...styles.today, borderColor: "red" };
+      return { ...styles.todays, borderColor: "red" };
     else if (today.year === selectedYear && today.month === selectedMonth && today.day === i)
-      return { ...styles.today };
+      return { ...styles.todays };
   };
 
   // 달력에 날짜 표시하는 로직
@@ -69,7 +69,7 @@ const Day = () => {
   return <View style={styles.days}>{returnDays()}</View>;
 };
 
-export default Day
+export default Day;
 
 const styles = {
   days: {
@@ -88,7 +88,7 @@ const styles = {
     textAlign: "center",
     paddingTop: 5,
   },
-  today: {
+  todays: {
     fontWeight: 700,
     borderWidth: 1,
     borderRadius: 100,
